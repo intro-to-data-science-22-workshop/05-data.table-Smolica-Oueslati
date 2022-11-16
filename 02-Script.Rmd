@@ -90,9 +90,9 @@ dim(school_data) # 109,756 rows and 13 columns. Great!
 Before we get into the wrangling, we should remind ourselves that data.table works through the following syntax:
 
 DT[i, j, by]:
-* i shows "on which rows"
-* j indicates "what to do"
-* by means "grouped by what?"
+- i shows "on which rows"
+- j indicates "what to do"
+- by means "grouped by what?"
 
 ## Sub-setting rows 
 
@@ -139,9 +139,7 @@ length(between_scaler) == length(inrange_scaler)
 
 However, both operators also accept vectors, in which case they operate differently: 
 
-%between% evaluates each row and returns T/F if the value of interest falls between the two vectors - the range defined by the two vectors varies for each row. 
-
-%inrange% on the other hand takes the minimum from the lower-bound (first vector) and the maximum from the upper-bound (second vector), forms a static range and then evaluates whether the value in a given row falls within this range.
+**%between%** evaluates each row and returns T/F if the value of interest falls between the two vectors - the range defined by the two vectors varies for each row. **%inrange%** on the other hand takes the minimum from the lower-bound (first vector) and the maximum from the upper-bound (second vector), forms a static range and then evaluates whether the value in a given row falls within this range.
 
 ```{r}
 between_vector <- male_albanian_students[math %between% list(science, read)]
@@ -273,7 +271,7 @@ Below we compute the mean staff shortage for Albanian schools differentiated by 
 by_condition <- clean_school_data[country == "ALB",
         .(mean(staff_shortage)),
         by = .(fund_donation > 50, total_students < 500)]
-by_condition[1:5]
+by_condition
 ```
 
 ## Combining several operations
@@ -282,6 +280,7 @@ by_condition[1:5]
 # let's try to subset both in columns and rows:
 cols_rows <- clean_school_data[country == "FRA" & year == 2018,
                .(m_total = mean(total_students), m_fun = mean(total_fun))]
+cols_rows
 
 # mean number of boys and girls in schools in KAZ, grouped by year and private/public status 
 all_combined <- clean_school_data[country == "KAZ",

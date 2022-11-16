@@ -352,7 +352,7 @@ speed? You don’t believe us? See for yourself!</p>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv&quot;</span>)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>end <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(end <span class="sc">-</span> start)</span></code></pre></div>
-<pre><code>## Time difference of 1.958064 secs</code></pre>
+<pre><code>## Time difference of 2.086871 secs</code></pre>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## reading a csv into a tibble</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv&quot;</span>)</span></code></pre></div>
@@ -366,13 +366,13 @@ speed? You don’t believe us? See for yourself!</p>
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>end <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(end <span class="sc">-</span> start)</span></code></pre></div>
-<pre><code>## Time difference of 1.81481 secs</code></pre>
+<pre><code>## Time difference of 1.891663 secs</code></pre>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reading a csv into a data.table</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">&quot;https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv&quot;</span>)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>end <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(end <span class="sc">-</span> start)</span></code></pre></div>
-<pre><code>## Time difference of 0.5031641 secs</code></pre>
+<pre><code>## Time difference of 1.145018 secs</code></pre>
 </div>
 <div id="data-wrangling-the-basics" class="section level1">
 <h1>Data wrangling: The basics</h1>
@@ -406,7 +406,7 @@ them to a variable to make our life easier:</p>
 <pre><code>## [1] 109756     13</code></pre>
 <p>Before we get into the wrangling, we should remind ourselves that
 data.table works through the following syntax:</p>
-<p>DT[i, j, by]: * i shows “on which rows” * j indicates “what to do” *
+<p>DT[i, j, by]: - i shows “on which rows” - j indicates “what to do” -
 by means “grouped by what?”</p>
 <div id="sub-setting-rows" class="section level2">
 <h2>Sub-setting rows</h2>
@@ -461,13 +461,13 @@ two operators accept both scalars and vectors. When used with a scalar,
 <pre><code>## [1] TRUE</code></pre>
 <p>However, both operators also accept vectors, in which case they
 operate differently:</p>
-<p>%between% evaluates each row and returns T/F if the value of interest
-falls between the two vectors - the range defined by the two vectors
-varies for each row.</p>
-<p>%inrange% on the other hand takes the minimum from the lower-bound
-(first vector) and the maximum from the upper-bound (second vector),
-forms a static range and then evaluates whether the value in a given row
-falls within this range.</p>
+<p><strong>%between%</strong> evaluates each row and returns T/F if the
+value of interest falls between the two vectors - the range defined by
+the two vectors varies for each row. <strong>%inrange%</strong> on the
+other hand takes the minimum from the lower-bound (first vector) and the
+maximum from the upper-bound (second vector), forms a static range and
+then evaluates whether the value in a given row falls within this
+range.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>between_vector <span class="ot">&lt;-</span> male_albanian_students[math <span class="sc">%between%</span> <span class="fu">list</span>(science, read)]</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 188 rows</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -623,10 +623,10 @@ below 500</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>by_condition <span class="ot">&lt;-</span> clean_school_data[country <span class="sc">==</span> <span class="st">&quot;ALB&quot;</span>,</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>        .(<span class="fu">mean</span>(staff_shortage)),</span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>        by <span class="ot">=</span> .(fund_donation <span class="sc">&gt;</span> <span class="dv">50</span>, total_students <span class="sc">&lt;</span> <span class="dv">500</span>)]</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>by_condition[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>by_condition</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["fund_donation"],"name":[1],"type":["lgl"],"align":["right"]},{"label":["total_students"],"name":[2],"type":["lgl"],"align":["right"]},{"label":["V1"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"FALSE","2":"FALSE","3":"-0.09020168"},{"1":"FALSE","2":"TRUE","3":"-0.20778860"},{"1":"TRUE","2":"TRUE","3":"-0.39405000"},{"1":"TRUE","2":"FALSE","3":"-0.15485000"},{"1":"NA","2":"NA","3":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["fund_donation"],"name":[1],"type":["lgl"],"align":["right"]},{"label":["total_students"],"name":[2],"type":["lgl"],"align":["right"]},{"label":["V1"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"FALSE","2":"FALSE","3":"-0.09020168"},{"1":"FALSE","2":"TRUE","3":"-0.20778860"},{"1":"TRUE","2":"TRUE","3":"-0.39405000"},{"1":"TRUE","2":"FALSE","3":"-0.15485000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -635,18 +635,23 @@ below 500</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># let&#39;s try to subset both in columns and rows:</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>cols_rows <span class="ot">&lt;-</span> clean_school_data[country <span class="sc">==</span> <span class="st">&quot;FRA&quot;</span> <span class="sc">&amp;</span> year <span class="sc">==</span> <span class="dv">2018</span>,</span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>               .(<span class="at">m_total =</span> <span class="fu">mean</span>(total_students), <span class="at">m_fun =</span> <span class="fu">mean</span>(total_fun))]</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="co"># mean number of boys and girls in schools in KAZ, grouped by year and private/public status </span></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>all_combined <span class="ot">&lt;-</span> clean_school_data[country <span class="sc">==</span> <span class="st">&quot;KAZ&quot;</span>,</span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>        .(<span class="fu">mean</span>(enrol_boys), <span class="fu">mean</span>(enrol_girls)),</span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>        by <span class="ot">=</span> .(year, public_private)]</span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>all_combined[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>cols_rows</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["m_total"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["m_fun"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"888.569","2":"96.81609"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mean number of boys and girls in schools in KAZ, grouped by year and private/public status </span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>all_combined <span class="ot">&lt;-</span> clean_school_data[country <span class="sc">==</span> <span class="st">&quot;KAZ&quot;</span>,</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>        .(<span class="fu">mean</span>(enrol_boys), <span class="fu">mean</span>(enrol_girls)),</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>        by <span class="ot">=</span> .(year, public_private)]</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>all_combined[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["year"],"name":[1],"type":["fct"],"align":["left"]},{"label":["public_private"],"name":[2],"type":["fct"],"align":["left"]},{"label":["V1"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["V2"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"2009","2":"public","3":"356.1211","4":"357.3263"},{"1":"2009","2":"private","3":"236.3750","4":"355.5000"},{"1":"2012","2":"public","3":"367.0148","4":"352.9951"},{"1":"2012","2":"private","3":"430.4286","4":"493.4286"},{"1":"2018","2":"public","3":"356.6547","4":"332.8354"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># why are we seeing V1, V2?</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># why are we seeing V1, V2?</span></span></code></pre></div>
 </div>
 </div>
 <div id="advanced-applications" class="section level1">
@@ -662,14 +667,14 @@ refers to each of these sub-data.tables, one-at-a-time. If we want to
 limit the column-wise computation to selected columns only (e.g., only
 numerical ones), we specify these through .SDcols. .SDcols also accepts
 a vector as input, which can be defined outside of data.table.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mean of 3 selected columns across countries in 2018</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>mean_columns <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;enrol_boys&quot;</span>, <span class="st">&quot;enrol_girls&quot;</span>, <span class="st">&quot;fund_fees&quot;</span>) <span class="co"># specifying the columns to iterate over</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="co"># number of enrolled boys, enrolled girls and hare of funding from student fees (full percentage points)</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>selected_means <span class="ot">&lt;-</span> clean_school_data[year <span class="sc">==</span> <span class="dv">2018</span>,        </span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">lapply</span>(.SD, mean),                    </span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>        by <span class="ot">=</span> .(country),           </span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>        .SDcols <span class="ot">=</span> mean_columns]   </span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>selected_means[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mean of 3 selected columns across countries in 2018</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>mean_columns <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;enrol_boys&quot;</span>, <span class="st">&quot;enrol_girls&quot;</span>, <span class="st">&quot;fund_fees&quot;</span>) <span class="co"># specifying the columns to iterate over</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="co"># number of enrolled boys, enrolled girls and hare of funding from student fees (full percentage points)</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>selected_means <span class="ot">&lt;-</span> clean_school_data[year <span class="sc">==</span> <span class="dv">2018</span>,        </span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">lapply</span>(.SD, mean),                    </span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>        by <span class="ot">=</span> .(country),           </span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>        .SDcols <span class="ot">=</span> mean_columns]   </span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>selected_means[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["country"],"name":[1],"type":["fct"],"align":["left"]},{"label":["enrol_boys"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["enrol_girls"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["fund_fees"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"ALB","2":"231.8041","3":"200.8763","4":"16.659794"},{"1":"QAZ","2":"719.4483","3":"610.8448","4":"1.603448"},{"1":"ARG","2":"264.7633","3":"256.6078","4":"27.674912"},{"1":"AUS","2":"515.7223","3":"477.7769","4":"21.745455"},{"1":"BIH","2":"197.5504","3":"177.3876","4":"3.992248"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -684,13 +689,13 @@ syntax can be read as ‘result from first []-operation is used in
 subsequent []-operation’. Chaining vertically is best practice and
 enhances readability.</p>
 <p>DT[… ][… ][… ]</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># computing the mean staff shortage by country and then ordering the result in decreasing order</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>chaining <span class="ot">&lt;-</span> clean_school_data[,</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>                              .(<span class="at">staff_shortage =</span> <span class="fu">mean</span>(staff_shortage)), </span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>                              by <span class="ot">=</span> .(country)</span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>                  ][<span class="fu">order</span>(<span class="sc">-</span>staff_shortage)</span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>                    ]</span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>chaining[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># computing the mean staff shortage by country and then ordering the result in decreasing order</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>chaining <span class="ot">&lt;-</span> clean_school_data[,</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>                              .(<span class="at">staff_shortage =</span> <span class="fu">mean</span>(staff_shortage)), </span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>                              by <span class="ot">=</span> .(country)</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>                  ][<span class="fu">order</span>(<span class="sc">-</span>staff_shortage)</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>                    ]</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>chaining[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["country"],"name":[1],"type":["fct"],"align":["left"]},{"label":["staff_shortage"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"KGZ","2":"1.2432147"},{"1":"TUR","2":"1.0665621"},{"1":"MAR","2":"1.0262737"},{"1":"JOR","2":"0.9953706"},{"1":"QCH","2":"0.7722232"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
