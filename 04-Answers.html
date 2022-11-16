@@ -342,10 +342,10 @@ div.tocify {
 <div
 id="a.load-the-data.table-package-and-the-nycflights13.-as-the-nycflight13-package-contains-several-datasets-we-assign-only-those-to-objects-we-will-later-use.-your-first-task-is-to-convert-each-dataset-to-data.table"
 class="section level4">
-<h4><span style="color: navy;"> 1a.Load the data.table package and the
-nycflights13. As the nycflight13 package contains several datasets, we
-assign only those to objects we will later use. Your first task is to
-convert each dataset to data.table: </span></h4>
+<h4>1a.Load the data.table package and the nycflights13. As the
+nycflight13 package contains several datasets, we assign only those to
+objects we will later use. Your first task is to convert each dataset to
+data.table:</h4>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(data.table, nycflights13)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>airports_data <span class="ot">&lt;-</span> <span class="fu">data.table</span>(airports)</span>
@@ -354,8 +354,7 @@ convert each dataset to data.table: </span></h4>
 </div>
 <div id="b.select-rows-40-to-95-from-flights_data"
 class="section level4">
-<h4><span style="color: navy;"> 1b.Select rows 40 to 95 from
-flights_data: </span></h4>
+<h4>1b.Select rows 40 to 95 from flights_data:</h4>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>flights_data [<span class="dv">40</span><span class="sc">:</span><span class="dv">95</span>]</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
@@ -366,9 +365,9 @@ flights_data: </span></h4>
 <div
 id="a.select-all-rows-from-flights_data-that-have-an-air-time-lower-than-100-then-order-the-flights-to-show-those-with-the-longest-air-time-first-decreasing-order"
 class="section level4">
-<h4><span style="color: navy;"> 2a.Select all rows from flights_data
-that have an air time lower than 100, then order the flights to show
-those with the longest air time first (decreasing order): </span></h4>
+<h4>2a.Select all rows from flights_data that have an air time lower
+than 100, then order the flights to show those with the longest air time
+first (decreasing order):</h4>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>flights_data[(air_time) <span class="sc">&lt;</span> <span class="dv">100</span>,][<span class="fu">order</span>(<span class="sc">-</span>air_time)]</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
@@ -379,8 +378,8 @@ those with the longest air time first (decreasing order): </span></h4>
 <div
 id="b.what-is-the-most-frequent-arrival-time-you-might-want-to-exclude-the-nas-from-now"
 class="section level4">
-<h4><span style="color: navy;"> 2b.What is the most frequent arrival
-time? (You might want to exclude the NAs from now :)) </span></h4>
+<h4>2b.What is the most frequent arrival time? (You might want to
+exclude the NAs from now :))</h4>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>clean_flights_data <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(flights_data)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>clean_flights_data[, .N, by <span class="ot">=</span> .(arr_time)][<span class="fu">order</span>(<span class="sc">-</span>N)]</span></code></pre></div>
 <div data-pagedtable="false">
@@ -392,8 +391,8 @@ time? (You might want to exclude the NAs from now :)) </span></h4>
 <div
 id="a.add-a-new-column-calculating-the-average-air-time-for-the-flights-from-each-origin"
 class="section level4">
-<h4><span style="color: navy;"> 3a.Add a new column calculating the
-average air time for the flights from each origin: </span></h4>
+<h4>3a.Add a new column calculating the average air time for the flights
+from each origin:</h4>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>clean_flights_data[, <span class="fu">mean</span>(air_time), by <span class="ot">=</span> .(origin)]</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
@@ -404,10 +403,9 @@ average air time for the flights from each origin: </span></h4>
 <div
 id="b.using-the-inbetween-operation-in-planes_data-check-which-manufacturer-produces-planes-with-a-number-of-seats-between-50-100-and-then-calculate-the-average-number-of-seats-across-these-planes"
 class="section level4">
-<h4><span style="color: navy;"> 3b.Using the %inbetween% operation, in
-planes_data check which manufacturer produces planes with a number of
-seats between 50-100, and then calculate the average number of seats
-across these planes: </span></h4>
+<h4>3b.Using the %inbetween% operation, in planes_data check which
+manufacturer produces planes with a number of seats between 50-100, and
+then calculate the average number of seats across these planes:</h4>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>planes_data[seats <span class="sc">%between%</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">100</span>), <span class="fu">mean</span>(seats), by <span class="ot">=</span> .(manufacturer)]</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
@@ -417,23 +415,22 @@ across these planes: </span></h4>
 </div>
 <div id="a.find-the-number-of-flights-that-arrived-on-time"
 class="section level4">
-<h4><span style="color: navy;"> 4a.Find the number of flights that
-arrived on time? </span></h4>
+<h4>4a.Find the number of flights that arrived on time?</h4>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>clean_flights_data[, (<span class="fu">sum</span>(arr_time <span class="sc">==</span> sched_arr_time))]</span></code></pre></div>
 <pre><code>## [1] 5409</code></pre>
 </div>
 <div
 id="b.find-the-most-frequent-departure-time-from-the-carriers-in-flights_data-careful-with-nas"
 class="section level4">
-<h4><span style="color: navy;"> 4b.Find the most frequent departure time
-from the carriers in flights_data (careful with NAs!): </span></h4>
+<h4>4b.Find the most frequent departure time from the carriers in
+flights_data (careful with NAs!):</h4>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>frequent_dep<span class="ot">&lt;-</span>clean_flights_data[, .N, by <span class="ot">=</span> .(carrier, dep_time)][<span class="fu">order</span>(N, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)]</span></code></pre></div>
 </div>
 <div
 id="c.using-.sd-find-which-carrier-had-the-longest-air-time-in-flights_data"
 class="section level4">
-<h4><span style="color: navy;"> 4c.Using .SD, find which carrier had the
-longest air time in flights_data: </span></h4>
+<h4>4c.Using .SD, find which carrier had the longest air time in
+flights_data:</h4>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>clean_flights_data[ , .SD[<span class="fu">which.max</span>(air_time)], by <span class="ot">=</span> carrier][<span class="fu">order</span>(<span class="sc">-</span>air_time)]</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
