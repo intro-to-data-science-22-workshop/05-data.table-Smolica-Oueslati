@@ -1,9 +1,18 @@
 ---
 title: "Data wrangling at scale with data.table"
 author: "Gresa Smolica & Amin Oueslati"
-output:
+date: "2022-11-16"
+output: 
   html_document:
-    css: "style.css"
+    toc: TRUE
+    df_print: paged
+    number_sections: FALSE
+    highlight: tango
+    theme: lumen
+    toc_depth: 3
+    toc_float: true
+    css: custom.css 
+    self_contained: false
 ---
 
 ```{r setup, include=FALSE}
@@ -12,16 +21,18 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ***
 
-#### Let's start by installing/loading all the packages we need.
+# Getting to know data.table
+
+Let's start by installing/loading all the packages we need.
 
 ```{r}
 pacman::p_load(data.table, learningtower, tidyverse)
 ```
 
 
-#### Before we start, let's go back to our claims regarding data.table's speed? You don't believe us? See for yourself!
+Before we start, let's go back to our claims regarding data.table's speed? You don't believe us? See for yourself!
 
-The examplary data is extracted from "EDAV Fall 2021 Tues/Thurs Community Contributions:
+The examplary data on data.table's speec is extracted from "EDAV Fall 2021 Tues/Thurs Community Contributions:
 
 ```{r}
 ## read a csv into a data.frame
@@ -49,7 +60,7 @@ end <- Sys.time()
 print(end - start)
 ```
 
-#### Wrangling data at scale with data.table 
+# Wrangling data with data.table 
 
 To start getting into data.table and its operations, first we need to install and load the data.table package and the learningtower package - which provides easy access to a subset of variables from the PISA educational study for the years 2000-2008. The data collection is orchestrated by the OECD. In this workshop we will use both the student and school dataset. While the former contains data at the student-level, the latter has schools as its units of observation.
 
@@ -61,7 +72,7 @@ load_student("2018")
 data("school")
 ```
 
-#### Now, let's convert our dataset into data.table and assign it to an object to make our life easier:
+Now, let's convert our dataset into data.table and assign it to an object to make our life easier:
 
 ```{r}
 # assigning the datasets to objects
@@ -73,14 +84,12 @@ dim(student_data) # so our dataset has 612,004 rows/observations and 22 columns/
 dim(school_data) # 109,756 rows and 13 columns. Great!
 ```
 
-#### Before we get into the wrangling, we should remind ourselves that data.table works through the following syntax:
+Before we get into the wrangling, we should remind ourselves that data.table works through the following syntax:
 
 
 DT[i, j, by] - where i shows "on which rows", j indicates "what to do", by means "grouped by what?"
 
-#### Now, let's wrangle that data! 
-
-##### Sub-setting rows: 
+## Sub-setting rows 
 
 <span style="color: green;">Tidyverse equivalent: filter</span>
 
@@ -95,7 +104,7 @@ male_albanian_students [1:5]
 # but student_data[country == "ALB" & gender == "male",] would work just fine
 ```
 
-##### Ordering rows in increasing or decreasing order: 
+## Ordering rows
 
 Exploring the power of (-) in data.table:
 
@@ -111,9 +120,9 @@ decr_ord <- male_albanian_students[order(-math)]
 decr_ord[1:5]
 ```
 
-##### Special operator %between% and %inrange%:
+## Special operators 
 
-They are useful to subset rows conditional on a value falling within a certain range. The two operators accept both scalars and vectors. When used with a scalar, %between% and %inrange% perform identically However, both operators also accept vectors, in which case they operate differently.
+%between% and %inrange% are two special operators that are useful to subset rows conditional on a value falling within a certain range. The two operators accept both scalars and vectors. When used with a scalar, %between% and %inrange% perform identically However, both operators also accept vectors, in which case they operate differently.
 
 ```{r}
 # when used with a scalar, %between% and %inrange% perform identically
@@ -134,7 +143,7 @@ inrange_vector <- male_albanian_students[math %inrange% list(science, read)]
 inrange_vector[1:5] # 3,182 rows, all but one student from the dataset, who falls outside range
 ```
 
-##### Extracting or modifying columns: 
+## Extracting columns 
 
 <span style="color: green;">Tidyverse equivalent: select</span>
 
@@ -158,7 +167,7 @@ select_columns_short <- select_columns[, !c("read", "science")]
 select_columns_short[1:5]
 ```
 
-##### Selecting and renaming columns:
+## Renaming columns
 
 ```{r}
 # selecting and renaming the columns for books and socioeconomic status
@@ -166,7 +175,7 @@ renamed_cols <- student_data[, .(books = book, socio_eco_status = escs)]
 head(renamed_cols)
 ```
 
-##### Creating new columns: 
+## Creating new columns 
 
 <span style="color: green;">Tidyverse equivalent: mutate</span>
 
@@ -179,7 +188,7 @@ total_score <- male_albanian_students[,
 total_score[1:5]
 ```
 
-##### How about creating multiple columns?
+## How about creating multiple columns?
 
 ```{r}
 # creating multiple new columns
@@ -188,7 +197,7 @@ multiple_columns <- school_data[ , `:=` (
 multiple_columns[1:5]
 ```
 
-##### Descriptive analysis:
+# Descriptive analysis:
 
 <span style="color: green;">Tidyverse equivalent: summarise</span>
 
@@ -218,7 +227,7 @@ print(paste0("Number of schools with more enrolled girls than boys ", n_school_m
 subseting_computing <- clean_school_data[country== "FRA" & year == 2018, sum(total_students)]
 ```
 
-##### Special symbol .N
+## Special symbol .N
 
 .N returns the number of observations in the current group. .N is particularly powerful when combined with grouping in "by".
 
@@ -231,7 +240,7 @@ clean_school_data[country== "FRA" & year == 2018, .N]
 # we see that we get the same result, but with shorter code
 ```
 
-##### Grouping with "by":
+## Grouping with "by"
 
 "By" allows us to perform operations by group. We are not limited to a single group, but can specify several groups:
 
@@ -249,7 +258,7 @@ by_condition[1:5]
 ```
 
 
-##### Descriptive analysis continued:
+## Descriptive analysis continued
 
 
 ```{r}
@@ -267,7 +276,7 @@ all_combined[1:5]
 # why are we seeing V1, V2?
 ```
 
-##### Full-on data.table - Advanced operations:
+# Advanced operations:
 
 What if we need to repeat an operation across many columns, like finding the mean? Is there a way to calculate the mean for several columns at once? 
 Yes, we can subset each column with .SD, and then compute the mean with with lapply. .SD is particularly useful in the context of grouping, where it refers to each of these sub-data.tables, one-at-a-time. 
@@ -284,7 +293,7 @@ selected_means <- clean_school_data[year == 2018,
 selected_means[1:5]
 ```
 
-##### Chaining:
+## Chaining:
 
 <span style="color: green;">Tidyverse equivalent: piping</span>
 
