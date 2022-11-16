@@ -1,15 +1,24 @@
 ---
 title: "Data wrangling exercises with data.table" 
-output:
+date: "2022-11-16"
+output: 
   html_document:
-    css: "style.css"
+    toc: TRUE
+    df_print: paged
+    number_sections: FALSE
+    highlight: tango
+    theme: lumen
+    toc_depth: 3
+    toc_float: true
+    css: custom.css 
+    self_contained: false
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-#### What are we going to work on?
+# What are we going to work on?
 
 These exercises provide you with an opportunity to apply everything you have learned about data.table. We cover all major tasks you typically encounter when wrangling data. Some of the exercises are purposefully designed to be somewhat more advanced and challenging. 
 
@@ -19,7 +28,10 @@ If you have any difficulties solving the exercises, you find an answer sheet in 
 
 Enjoy!
 
-##### <span style="color: navy;">1a. Load the data.table package and the nycflights13. As the nycflight13 package contains several datasets, we assign only those to objects we will later use. Your first task is to convert each dataset to data.table:</span>
+***
+# Exercises 1 - 4
+
+#### <span style="color: navy;"> 1a.Load the data.table package and the nycflights13. As the nycflight13 package contains several datasets, we assign only those to objects we will later use. Your first task is to convert each dataset to data.table: </span>
 
 ```{r}
 pacman::p_load(data.table, nycflights13)
@@ -31,7 +43,7 @@ planes_data <- planes
 ```
 
 
-##### <span style="color: navy;"> 1b. Select rows 40 to 95 from flights_data: </span>
+#### <span style="color: navy;"> 1b.Select rows 40 to 95 from flights_data: </span>
 
 
 ```{r}
@@ -40,7 +52,7 @@ planes_data <- planes
 ```
 
 
-##### <span style="color: navy;"> 2a. Select all rows from flights_data that have an air time lower than 100, then order the flights to show those with the longest air time first (decreasing order): </span>
+#### <span style="color: navy;"> 2a.Select all rows from flights_data that have an air time lower than 100, then order the flights to show those with the longest air time first (decreasing order): </span>
 
 
 ```{r}
@@ -49,7 +61,7 @@ planes_data <- planes
 ```
 
 
-##### <span style="color: navy;"> 2b. What is the most frequent arrival time? (You might want to exclude the NAs from now :)) </span>
+#### <span style="color: navy;"> 2b.What is the most frequent arrival time? (You might want to exclude the NAs from now :)) </span>
 
 
 ```{r}
@@ -58,7 +70,7 @@ planes_data <- planes
 ```
 
 
-##### <span style="color: navy;"> 3a. Add a new column calculating the average air time for the flights from each origin: </span>
+#### <span style="color: navy;">  3a.Add a new column calculating the average air time for the flights from each origin: </span>
 
 
 ```{r}
@@ -67,7 +79,7 @@ planes_data <- planes
 ```
 
 
-##### <span style="color: navy;"> 3b. Using the %inbetween% operation, in planes_data check which manufacturer produces planes with a number of seats between 50-100, and then calculate the average number of seats across these planes: </span>
+#### <span style="color: navy;">  3b.Using the %inbetween% operation, in planes_data check which manufacturer produces planes with a number of seats between 50-100, and then calculate the average number of seats across these planes: </span>
 
 
 ```{r}
@@ -76,7 +88,7 @@ planes_data <- planes
 ```
 
 
-##### <span style="color: navy;"> 4a. Find the number of flights that arrived on time? </span>
+#### <span style="color: navy;">  4a.Find the number of flights that arrived on time? </span>
 
 
 ```{r}
@@ -85,7 +97,7 @@ planes_data <- planes
 ```
 
 
-##### <span style="color: navy;"> 4b.Find the most frequent departure time from the carriers in flights_data (careful with NAs!): </span>
+#### <span style="color: navy;"> 4b.Find the most frequent departure time from the carriers in flights_data (careful with NAs!): </span>
 
 
 ```{r}
@@ -94,7 +106,7 @@ planes_data <- planes
 ```
 
 
-##### <span style="color: navy;"> 4c.Using .SD, find which carrier had the longest air time in flights_data: </span>
+#### <span style="color: navy;"> 4c.Using .SD, find which carrier had the longest air time in flights_data: </span>
 
 
 ```{r}
