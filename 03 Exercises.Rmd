@@ -28,6 +28,7 @@ If you have any difficulties solving the exercises, you find an answer sheet in 
 
 Enjoy!
 
+***
 # Exercises 1 - 4
 
 #### <span style="color: navy;"> 1a.Load the data.table package and the nycflights13. As the nycflight13 package contains several datasets, we assign only those to objects we will later use. Your first task is to convert each dataset to data.table: </span>

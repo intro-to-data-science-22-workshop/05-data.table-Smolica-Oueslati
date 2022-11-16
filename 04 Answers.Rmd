@@ -1,8 +1,17 @@
 ---
 title: "Answer/solution sheet"
-output:
+date: "2022-11-16"
+output: 
   html_document:
-    css: "style.css"
+    toc: TRUE
+    df_print: paged
+    number_sections: FALSE
+    highlight: tango
+    theme: lumen
+    toc_depth: 3
+    toc_float: true
+    css: custom.css 
+    self_contained: false
 ---
 
 ```{r setup, include=FALSE}
@@ -10,9 +19,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-##### <span style="color: navy;"> Let's go through it together one by one: </span>
+#### Let's go through one by one together
+***
 
-##### 1a. Load the data.table package and the nycflights13. As the nycflight13 package contains several datasets, we assign only those to objects we will later use. Your first task is to convert each dataset to data.table:
+#### <span style="color: navy;"> 1a.Load the data.table package and the nycflights13. As the nycflight13 package contains several datasets, we assign only those to objects we will later use. Your first task is to convert each dataset to data.table: </span>
 
 ```{r}
 pacman::p_load(data.table, nycflights13)
@@ -23,8 +33,7 @@ planes_data <- data.table(planes)
 ```
 
 
-##### 1b. Select rows 40 to 95 from flights_data:
-
+#### <span style="color: navy;"> 1b.Select rows 40 to 95 from flights_data: </span>
 
 ```{r}
 flights_data [40:95]
@@ -32,7 +41,7 @@ flights_data [40:95]
 ```
 
 
-##### 2a. Select all rows from flights_data that have an air time lower than 100, then order the flights to show those with the longest air time first (decreasing order):
+#### <span style="color: navy;"> 2a.Select all rows from flights_data that have an air time lower than 100, then order the flights to show those with the longest air time first (decreasing order): </span>
 
 
 ```{r}
@@ -40,7 +49,7 @@ flights_data[(air_time) < 100,][order(-air_time)]
 ```
 
 
-##### 2b. What is the most frequent arrival time? (You might want to exclude the NAs from now :))
+#### <span style="color: navy;"> 2b.What is the most frequent arrival time? (You might want to exclude the NAs from now :)) </span>
 
 
 ```{r}
@@ -49,7 +58,7 @@ clean_flights_data[, .N, by = .(arr_time)][order(-N)]
 ```
 
 
-##### 3a. Add a new column calculating the average air time for the flights from each origin:
+#### <span style="color: navy;">  3a.Add a new column calculating the average air time for the flights from each origin: </span>
 
 
 ```{r}
@@ -57,15 +66,14 @@ clean_flights_data[, mean(air_time), by = .(origin)]
 ```
 
 
-##### 3b. Using the %inbetween% operation, in planes_data check which manufacturer produces planes with a number of seats between 50-100, and then calculate the average number of seats across these planes:
-
+#### <span style="color: navy;">  3b.Using the %inbetween% operation, in planes_data check which manufacturer produces planes with a number of seats between 50-100, and then calculate the average number of seats across these planes: </span>
 
 ```{r}
 planes_data[seats %between% c(50, 100), mean(seats), by = .(manufacturer)]
 ```
 
 
-##### 4a. Find the number of flights that arrived on time?
+#### <span style="color: navy;">  4a.Find the number of flights that arrived on time? </span>
 
 
 ```{r}
@@ -73,7 +81,7 @@ clean_flights_data[, (sum(arr_time == sched_arr_time))]
 ```
 
 
-##### 4b.Find the most frequent departure time from the carriers in flights_data (careful with NAs!):
+#### <span style="color: navy;"> 4b.Find the most frequent departure time from the carriers in flights_data (careful with NAs!): </span>
 
 
 ```{r}
@@ -81,7 +89,7 @@ frequent_dep<-clean_flights_data[, .N, by = .(carrier, dep_time)][order(N, decre
 ```
 
 
-##### 4c.Using .SD, find which carrier had the longest air time in flights_data:
+#### <span style="color: navy;"> 4c.Using .SD, find which carrier had the longest air time in flights_data: </span>
 
 
 ```{r}
