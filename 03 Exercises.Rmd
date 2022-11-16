@@ -1,0 +1,104 @@
+---
+title: "Data wrangling exercises with data.table" 
+output:
+  html_document:
+    css: "style.css"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#### What are we going to work on?
+
+These exercises provide you with an opportunity to apply everything you have learned about data.table. We cover all major tasks you typically encounter when wrangling data. Some of the exercises are purposefully designed to be somewhat more advanced and challenging. 
+
+But don't worry about the last part, by now all of you classify as R experts!
+
+If you have any difficulties solving the exercises, you find an answer sheet in the repo...but try to do this on your own first. Also, often there exist more than just one solution, so be creative and connect data.table to your other R expertise (after all, data.table is really compatible).
+
+Enjoy!
+
+##### <span style="color: navy;">1a. Load the data.table package and the nycflights13. As the nycflight13 package contains several datasets, we assign only those to objects we will later use. Your first task is to convert each dataset to data.table:</span>
+
+```{r}
+pacman::p_load(data.table, nycflights13)
+
+airlines_data <- airlines
+flights_data <- flights
+planes_data <- planes
+
+```
+
+
+##### <span style="color: navy;"> 1b. Select rows 40 to 95 from flights_data: </span>
+
+
+```{r}
+##
+
+```
+
+
+##### <span style="color: navy;"> 2a. Select all rows from flights_data that have an air time lower than 100, then order the flights to show those with the longest air time first (decreasing order): </span>
+
+
+```{r}
+##
+
+```
+
+
+##### <span style="color: navy;"> 2b. What is the most frequent arrival time? (You might want to exclude the NAs from now :)) </span>
+
+
+```{r}
+##
+
+```
+
+
+##### <span style="color: navy;"> 3a. Add a new column calculating the average air time for the flights from each origin: </span>
+
+
+```{r}
+##
+
+```
+
+
+##### <span style="color: navy;"> 3b. Using the %inbetween% operation, in planes_data check which manufacturer produces planes with a number of seats between 50-100, and then calculate the average number of seats across these planes: </span>
+
+
+```{r}
+##
+
+```
+
+
+##### <span style="color: navy;"> 4a. Find the number of flights that arrived on time? </span>
+
+
+```{r}
+##
+
+```
+
+
+##### <span style="color: navy;"> 4b.Find the most frequent departure time from the carriers in flights_data (careful with NAs!): </span>
+
+
+```{r}
+##
+
+```
+
+
+##### <span style="color: navy;"> 4c.Using .SD, find which carrier had the longest air time in flights_data: </span>
+
+
+```{r}
+##
+
+```
+
